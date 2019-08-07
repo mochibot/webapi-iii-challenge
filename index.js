@@ -1,6 +1,8 @@
 // code away!
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
+
 const userRouter = require('./users/userRouter');
 const postRouter = require('./posts/postRouter');
 const server = express();
@@ -16,6 +18,7 @@ function logger(req, res, next) {
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 server.use(logger); //global middleware
 server.use('/users', userRouter);
 server.use('/posts', postRouter);
