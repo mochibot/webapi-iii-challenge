@@ -4,6 +4,8 @@ const cors = require('cors');
 
 const userRouter = require('./users/userRouter');
 const postRouter = require('./posts/postRouter');
+
+const { logger } = require('./middlewares/middlewares');
 const server = express();
 
 server.get('/greeting', (req, res) => {
@@ -12,14 +14,7 @@ server.get('/greeting', (req, res) => {
   })
 });
 
-//custom middleware
-function logger(req, res, next) {
-  let method = req.method;
-  let url = req.url;
-  let time = new Date();
-  console.log(`${method} request to ${url} was made on ${time}`);
-  next();
-}
+//custom middleware - moved to separate folder
 
 server.use(express.json());
 server.use(helmet());
