@@ -10,7 +10,7 @@ const UserPage = (props) => {
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
 
-  let baseURL = '/users';
+  let baseURL = '/api/users';
   let id = props.match.params.userId;
 
   useEffect(() => {

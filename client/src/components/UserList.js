@@ -10,7 +10,7 @@ const UserList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   
-  let baseURL = '/users';
+  let baseURL = '/api/users';
 
   useEffect(() => {
     axios.get(baseURL)

@@ -25,7 +25,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use(logger); //global middleware
-server.use('/users', userRouter);
-server.use('/posts', postRouter);
+server.use('/api/users', userRouter);
+server.use('/api/posts', postRouter);
 
 module.exports = server;
