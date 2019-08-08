@@ -9,9 +9,9 @@ const User = (props) => {
         <Button icon='' onClick={(event) => props.deleteUser(event, props.user.id)}>Delete</Button>,
         <Button icon=''onClick={(event) => props.selectUser(event, props.user)}>Edit</Button>
       ]}>
-    <List.Item.Meta 
-      title={props.user.name} 
-      description={<Link to={`/users/${props.user.id}`}><Button icon='solution'>View posts</Button></Link>} />
+      <List.Item.Meta 
+        title={props.user.name} 
+        description={<Link to={`/users/${props.user.id}`}><Button icon='solution'>View posts</Button></Link>} />
     </List.Item>
   )
 }

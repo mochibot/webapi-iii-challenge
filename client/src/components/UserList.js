@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
-import { List, Button, Modal } from 'antd';
+import { List, Button, Modal, Spin } from 'antd';
 import UserForm from './UserForm';
 import User from './User';
 
@@ -8,14 +8,16 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
   const [activeUser, setActiveUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  let baseURL = 'http://localhost:8000/users';
+  let baseURL = '/users';
 
   useEffect(() => {
     axios.get(baseURL)
       .then(response => {
         console.log('fetch users success: ', response);
         setUsers(response.data);
+        setIsLoading(false);
       })
       .catch(error => {
         console.log('fetch users error: ', error);
@@ -99,13 +101,19 @@ const UserList = () => {
   }
 
   return (
-    <List style={{width: '500px', margin: '20px auto'}} bordered> 
+    <div>
       <Button onClick={openModal}>Add user</Button>
-      <Modal visible={isModalOpen} footer={null} onCancel={closeModal}>
-        <UserForm addUser={addUser} editUser={editUser} closeModal={closeModal} activeUser={activeUser}/>
-      </Modal>
-      {users.map(item => <User key={'user ' + item.id} user={item} deleteUser={deleteUser} selectUser={selectUser}/>)}
-    </List>
+      <List style={{width: '500px', margin: '20px auto'}} bordered> 
+        <Modal visible={isModalOpen} footer={null} onCancel={closeModal}>
+          <UserForm addUser={addUser} editUser={editUser} closeModal={closeModal} activeUser={activeUser}/>
+        </Modal>
+        {isLoading ? 
+          (<div>
+            <Spin size='large' tip='Loading'/>
+          </div>) : 
+            users.map(item => <User key={`user ${item.id}`} user={item} deleteUser={deleteUser} selectUser={selectUser}/>)}
+      </List>
+    </div>
   )
 }
 
